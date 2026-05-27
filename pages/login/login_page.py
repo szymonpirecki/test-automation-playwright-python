@@ -1,6 +1,3 @@
-from pages.product.products_grid_page import ProductsGridPage
-
-
 class LoginPage:
     def __init__(self, page):
         self.page = page
@@ -12,7 +9,7 @@ class LoginPage:
         self.login_input.fill(login_data.username)
         self.password_input.fill(login_data.password)
         self.password_input.press('Enter')
-        return ProductsGridPage(self.page)
+        return self
 
     def get_error_msg(self):
         return self.error_msg.inner_text()

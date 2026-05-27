@@ -41,7 +41,7 @@ class ProductsGridPage:
         return BasketPage(self.page)
 
     def get_random_quantity(self):
-        return random.randrange(self.get_product_count())
+        return random.randint(1, self.get_product_count())
 
     def get_product_count(self):
         return self.product_containers.count()

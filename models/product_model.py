@@ -1,9 +1,8 @@
 class ProductModel:
-    def __init__(self, title, price, description, add_to_cart_btn):
+    def __init__(self, title, price, description):
         self.title = title
         self.price = price
         self.description = description
-        self.add_to_cart_btn = add_to_cart_btn
 
     def __repr__(self):
         return f"ProductModel(title={self.title}, price={self.price}, description={self.description})"

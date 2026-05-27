@@ -18,4 +18,4 @@ class TestBase:
             with open(file_path, 'r') as f:
                 TestBase.VARIABLES = yaml.safe_load(f)
         except (FileNotFoundError, yaml.YAMLError) as e:
-            print(f"Error reading YAML file '{file_path}': {e}")
+            pytest.fail(f"Cannot load test configuration from '{file_path}': {e}")

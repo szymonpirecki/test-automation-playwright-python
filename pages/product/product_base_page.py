@@ -24,8 +24,7 @@ class ProductBasePage:
         return ProductModel(
             self.get_product_title(),
             self.get_product_price(),
-            self.get_product_description(),
-            self.add_to_basket_button
+            self.get_product_description()
         )
 
 
