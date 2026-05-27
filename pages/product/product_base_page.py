@@ -1,26 +1,26 @@
 from playwright.sync_api import Locator
+
 from models.product_model import ProductModel
 
 
 class ProductBasePage:
-    def __init__(self, container: Locator):
+    def __init__(self, container: Locator) -> None:
         self.container = container
         self.product_title = container.locator('[data-test="inventory-item-name"]')
         self.product_price = container.locator('[data-test="inventory-item-price"]')
         self.product_description = container.locator('[data-test="inventory-item-desc"]')
         self.add_to_basket_button = container.locator('.btn_inventory')
 
-    def get_product_title(self):
+    def get_product_title(self) -> str:
         return self.product_title.inner_text()
 
-    def get_product_price(self):
-        price_text = self.product_price.inner_text()
-        return parse_price(price_text)
+    def get_product_price(self) -> float:
+        return parse_price(self.product_price.inner_text())
 
-    def get_product_description(self):
+    def get_product_description(self) -> str:
         return self.product_description.inner_text()
 
-    def map_to_product_model(self):
+    def map_to_product_model(self) -> ProductModel:
         return ProductModel(
             self.get_product_title(),
             self.get_product_price(),
@@ -28,5 +28,5 @@ class ProductBasePage:
         )
 
 
-def parse_price(price_string):
+def parse_price(price_string: str) -> float:
     return float(price_string.replace('$', '').strip())

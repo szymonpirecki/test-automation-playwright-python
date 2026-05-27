@@ -1,3 +1,6 @@
+.env
+test-results/
+allure-results/
 screenshots/
 
 ### Python template

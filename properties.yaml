@@ -1,13 +1,9 @@
 base_url: https://www.saucedemo.com/
 users:
   standard:
-    username: standard_user
-    password: secret_sauce
     first_name: tony
     last_name: hawk
     post_code: '1134'
     confirmation_msg: Thank you for your order!
   locked_out:
-    username: locked_out_user
-    password: secret_sauce
     error_msg: 'Epic sadface: Sorry, this user has been locked out.'
