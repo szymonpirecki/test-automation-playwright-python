@@ -57,7 +57,7 @@ class TestShop:
 
     def test_product_details_display(self, page: Page) -> None:
         products_page = ProductsGridPage(page)
-        random_product = products_page.get_nth_product_container(products_page.get_random_quantity())
+        random_product = products_page.get_nth_product_container(products_page.get_random_index())
         product_on_grid = random_product.map_to_product_model()
         product_on_its_page = random_product.go_to_product_page().map_to_product_model()
         assert product_on_grid == product_on_its_page

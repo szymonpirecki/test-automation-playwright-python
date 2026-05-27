@@ -45,5 +45,8 @@ class ProductsGridPage:
     def get_random_quantity(self) -> int:
         return random.randint(1, self.get_product_count())
 
+    def get_random_index(self) -> int:
+        return random.randint(0, self.get_product_count() - 1)
+
     def get_product_count(self) -> int:
         return self.product_containers.count()
