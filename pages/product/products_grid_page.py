@@ -32,8 +32,8 @@ class ProductsGridPage:
         product_container_components = self.get_product_containers()
         return [container.get_product_price() for container in product_container_components]
 
-    def sort_products(self, sort_option):
-        self.sort_dropdown.select_option(sort_option)
+    def sort_products(self, sort_option: 'SortOption'):
+        self.sort_dropdown.select_option(sort_option.value)
         return self
 
     def go_to_cart(self):

@@ -4,6 +4,7 @@ from models.checkout_data_model import CheckoutDataModel
 from models.login_data_model import LoginDataModel
 from pages.login.login_page import LoginPage
 from pages.product.products_grid_page import ProductsGridPage
+from pages.product.sort_option import SortOption
 from tests.test_base import TestBase
 
 
@@ -24,8 +25,9 @@ class TestShop(TestBase):
         assert error_msg == expected_error_msg
 
     def test_check_out_flow(self, page):
-        confirm_msg = (ProductsGridPage(page)
-                       .add_to_basket_n_products(ProductsGridPage(page).get_random_quantity())
+        products_page = ProductsGridPage(page)
+        confirm_msg = (products_page
+                       .add_to_basket_n_products(products_page.get_random_quantity())
                        .go_to_cart()
                        .go_to_checkout()
                        .fill_checkout_data(CheckoutDataModel.get_checkout_data(self.VARIABLES))
@@ -37,31 +39,31 @@ class TestShop(TestBase):
 
         assert confirm_msg == expected_confirm_msg
 
-    @pytest.mark.parametrize("sort_option, is_descending", [('az', False), ('za', True)])
+    @pytest.mark.parametrize("sort_option, is_descending", [
+        (SortOption.AZ, False),
+        (SortOption.ZA, True),
+    ])
     def test_sort_products_by_title(self, page, sort_option, is_descending):
-        product_titles = (ProductsGridPage(page)
-                          .save_product_titles())
-
-        sorted_product_titles = (ProductsGridPage(page)
-                                 .sort_products(sort_option)
-                                 .save_product_titles())
+        products_page = ProductsGridPage(page)
+        product_titles = products_page.save_product_titles()
+        sorted_product_titles = products_page.sort_products(sort_option).save_product_titles()
 
         assert sorted_product_titles == sorted(product_titles, reverse=is_descending)
 
-    @pytest.mark.parametrize("sort_option, is_descending", [('lohi', False), ('hilo', True)])
+    @pytest.mark.parametrize("sort_option, is_descending", [
+        (SortOption.PRICE_LOW_HIGH, False),
+        (SortOption.PRICE_HIGH_LOW, True),
+    ])
     def test_sort_products_by_price(self, page, sort_option, is_descending):
-        products_prices = (ProductsGridPage(page)
-                           .save_product_prices())
-
-        sorted_product_prices = (ProductsGridPage(page)
-                                 .sort_products(sort_option)
-                                 .save_product_prices())
+        products_page = ProductsGridPage(page)
+        products_prices = products_page.save_product_prices()
+        sorted_product_prices = products_page.sort_products(sort_option).save_product_prices()
 
         assert sorted_product_prices == sorted(products_prices, reverse=is_descending)
 
     def test_product_details_display(self, page):
-        random_product = (ProductsGridPage(page)
-                          .get_nth_product_container(ProductsGridPage(page).get_random_quantity()))
+        products_page = ProductsGridPage(page)
+        random_product = products_page.get_nth_product_container(products_page.get_random_quantity())
 
         product_on_grid = (random_product
                            .map_to_product_model())
